@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Message } from './entities/message.entity';
-import { AddMessageDTO } from './dto/add-message.DTO';
+import { Message } from '../entities/message.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class MessageService {
@@ -11,8 +11,11 @@ export class MessageService {
     private messageRepository: Repository<Message>,
   ) {}
 
-  add(dto: AddMessageDTO) {
-    return this.messageRepository.insert(dto);
+  addMessage(user: User, text: string) {
+    return this.messageRepository.save({
+      userId: user.id,
+      text,
+    });
   }
 
   count() {

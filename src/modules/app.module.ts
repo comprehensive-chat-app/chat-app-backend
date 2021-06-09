@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Message } from './message/entities/message.entity';
-import { MessageModule } from './message/message.module';
+import { ChatModule } from './chat/chat.module';
+import { join } from 'path';
 
 @Module({
   imports: [
-    MessageModule,
+    ChatModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -13,7 +13,8 @@ import { MessageModule } from './message/message.module';
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      entities: [Message],
+      entities: [join(__dirname, '/**/*.entity.{ts,js}')],
+      dropSchema: true,
       synchronize: true,
     }),
   ],
