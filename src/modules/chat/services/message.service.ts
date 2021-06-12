@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Message } from '../entities/message.entity';
 import { User } from '../entities/user.entity';
+import { MessageListDTO } from '../dto/message-list.DTO';
 
 @Injectable()
 export class MessageService {
@@ -13,12 +14,19 @@ export class MessageService {
 
   addMessage(user: User, text: string) {
     return this.messageRepository.save({
-      userId: user.id,
+      user,
       text,
     });
   }
 
-  count() {
-    return this.messageRepository.count();
+  list(params: MessageListDTO) {
+    return this.messageRepository.find({
+      ...params,
+      take: 20,
+      order: {
+        id: 'ASC',
+      },
+      relations: ['user'],
+    });
   }
 }

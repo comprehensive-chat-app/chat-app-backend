@@ -24,7 +24,6 @@ export class UserService {
       .digest('hex');
 
     const user = await this.userRepository.findOne({ clientHash });
-    debugger;
     if (!user) {
       const nickname = uniqueNamesGenerator({
         dictionaries: [names, countries],
