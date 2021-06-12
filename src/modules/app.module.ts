@@ -14,7 +14,6 @@ import { join } from 'path';
       password: 'postgres',
       database: 'postgres',
       entities: [join(__dirname, '/**/*.entity.{ts,js}')],
-      dropSchema: true,
       synchronize: true,
     }),
   ],
