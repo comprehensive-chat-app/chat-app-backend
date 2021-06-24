@@ -4,6 +4,7 @@ COPY package-lock.json ./
 COPY tsconfig.build.json ./
 COPY tsconfig.json ./
 COPY src ./src
+COPY .env* ./
 
 RUN npm ci
 RUN npm run build
